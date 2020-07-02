@@ -1,21 +1,26 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View, Alert } from 'react-native';
+import * as Location from 'expo-location';
+import Loader from './Loader';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    const getLocation = async () => {
+      try {
+        setIsLoading(true);
+        // 사용자 권한 요청, promise를 반환한다.
+        await Location.requestPermissionsAsync();
+        const {
+          coords: { latitude, longitude },
+        } = await Location.getCurrentPositionAsync();
+        setIsLoading(false);
+      } catch (error) {
+        Alert.alert("can't find your location.");
+      }
+    };
+    getLocation();
+  }, []);
+  return <>{isLoading ? <Loader /> : null}</>;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
