@@ -11,12 +11,14 @@ const API_KEY = 'a7ada5973794e2fbcdc34f0874424235';
 export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [temperature, setTemperature] = useState(null);
+  const [condition, setCondition] = useState('Clear');
 
   // 현 위치의 날씨를 가져온다.
   const getWeather = async (latitude, longitude) => {
     const url = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`;
     const { data } = await axios.get(url);
     setTemperature(data.main.temp);
+    setCondition(data.weather[0].main);
   };
 
   useEffect(() => {
@@ -37,5 +39,5 @@ export default function App() {
     };
     getLocation();
   }, []);
-  return <>{isLoading ? <Loader /> : <Weather temp={Math.round(temperature)} />}</>;
+  return <>{isLoading ? <Loader /> : <Weather temp={Math.round(temperature)} condition={condition} />}</>;
 }
