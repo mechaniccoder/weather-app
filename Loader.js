@@ -1,9 +1,10 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React from 'react';
+import { StyleSheet, Text, View, StatusBar } from 'react-native';
 
 const Loader = () => {
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="dark-content" />
       <Text style={styles.text}>Getting the Weather!!</Text>
     </View>
   );
@@ -12,15 +13,15 @@ const Loader = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-end",
+    justifyContent: 'flex-end',
     paddingHorizontal: 30,
     paddingVertical: 100,
-    backgroundColor: "#FDF6AA",
+    backgroundColor: '#FDF6AA',
   },
   text: {
     fontSize: 30,
-    textAlign: "center",
-    color: "gray",
+    textAlign: 'center',
+    color: 'gray',
   },
 });
 
