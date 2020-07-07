@@ -41,3 +41,5 @@ const App = () => {
   }, []);
   return <>{isLoading ? <Loader /> : <Weather temp={Math.round(temperature)} condition={condition} />}</>;
 };
+
+export default App;
